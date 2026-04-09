@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grocery Kits</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: inline-block;
+            width: 30%;
+            vertical-align: top;
+        }
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .price {
+            color: green;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .box {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Grocery Kits</h1>
+
+    <h3>Total Kits: {{ kits|length }}</h3> <!-- DEBUG -->
+
+    {% for kit in kits %}
+    <div class="card">
+        
+        <!-- Image -->
+        {% if kit.image %}
+            <img src="{{ kit.image }}" alt="{{ kit.title }}">
+        {% else %}
+            <img src="https://via.placeholder.com/300" alt="No Image">
+        {% endif %}
+        
+        <!-- Title -->
+        <h2>{{ kit.title }}</h2>
+
+        <!-- Details -->
+        <div class="box"><strong>Members:</strong> {{ kit.members|default:"N/A" }}</div>
+        <div class="box"><strong>Rating:</strong>  {{ kit.rating|default:"0" }}</div>
+        <div class="box"><strong>Reviews:</strong> {{ kit.reviews|default:"0" }}</div>
+        <div class="box"><strong>Badge:</strong> {{ kit.badge|default:"-" }}</div>
+        <div class="box"><strong>Tag:</strong> {{ kit.tag|default:"-" }}</div>
+
+        <!-- Description -->
+        <p>{{ kit.description|default:"No description available" }}</p>
+
+        <!-- Price -->
+        <p class="price">₹ {{ kit.price|default:"0" }}</p>
+
+    </div>
+    {% empty %}
+        <h2>No Grocery Kits Available ❌</h2>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>
